@@ -1,12 +1,12 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, protocol} = require('electron')
 const path = require('path')
 
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 650,
   })
 
   // and load the index.html of the app.
@@ -20,6 +20,16 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  protocol.registerFileProtocol('test', (request, callback) => {
+    const url = request.url.substr(7)
+    callback({ path: path.normalize(`${__dirname}/${url}`) })
+  })
+
+  protocol.interceptFileProtocol('http', (request, callback) => {
+    const url = new URL(request.url)
+    callback({ path: path.normalize(`${__dirname}/${url.pathname}`) })
+  })
+
   createWindow()
 
   app.on('activate', function () {
