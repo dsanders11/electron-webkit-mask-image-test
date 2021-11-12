@@ -14,6 +14,21 @@ function createWindow () {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
+
+  // Create the browser window.
+  const otherWindow = new BrowserWindow({
+    width: 800,
+    height: 650,
+    webPreferences: {
+      webSecurity: false,
+    },
+  })
+
+  // and load the index.html of the app.
+  otherWindow.loadFile('index.html')
+
+  // Open the DevTools.
+  otherWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
