@@ -7,6 +7,7 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 650,
+    title: "WebSecurity: ON",
   })
 
   // and load the index.html of the app.
@@ -22,6 +23,7 @@ function createWindow () {
     webPreferences: {
       webSecurity: false,
     },
+    title: "WebSecurity: OFF",
   })
 
   // and load the index.html of the app.
